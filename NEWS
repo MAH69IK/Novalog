@@ -1,0 +1,98 @@
+* Version 3
+ - fix interaction between "postrotate_cmd" and "logdir" (by Matt Whitlock
+   #2887065)
+ - switch to pkg-config for pcre look up
+ - update bundled gnulib code
+
+* Version 2
+ - fix long standing typo where the minute field in the rotated log was
+   replaced with the current month: %m instead of %M (by dorian33 #3027782)
+ - add support for rate limiting of messages with the new "ratelimit" and
+   "ratelimit_burst" keywords (by Martin von Gagern #2777251)
+ - standardize warning/error output
+
+* Version 1
+ - switch over to using daemon() by default
+ - fix stupid semicolon typo causing breaks on all lines (Gentoo Bug #258830)
+ - add "flush" keyword to control flushing per log output (by Martin von
+   Gagern #2549231)
+ - add --with-unicode option to control unicode mangling #2669923
+
+* Version 0.9
+ - add --no-kernel option by Adrian Perez de Castro to disable kernel message
+   monitoring (#1727129 and #1751757)
+ - convert source tree to use gnulib rather than random local replacements
+ - fix by Amigac to not skip the "command" line when "logdir" and "break" are
+   both in use (#2401520)
+ - add "stamp_fmt" keyword to control the timestamp format in messages (based
+   partially on work from cJ #1910360 and Philip White #1690349, and for
+   #1232638)
+ - make sure to flush all buffers on exit in buffered mode as pointed out by
+   Ingo Bormuth (Gentoo Bug #233794)
+
+* Version 0.8
+ - tweak signal handlers some more (#1655169)
+ - when dequeuing messages from the signal pipe, abort if malloc() failed
+ - add hal filter to default metalog.conf (Gentoo Bug #174847)
+ - add support from Eric Schwimmer / Debian for a new "postrotate_cmd"
+   option (#1706160)
+ - fix from Eric Schwimmer for div by zero error when maxtime = 0 (#1706158)
+ - add support from Eric Schwimmer for controlling the "Last output repeated
+   N times" message (#1706164)
+ - use %e rather than %d for logging dates (Gentoo Bug #177258)
+
+* Version 0.8-rc4
+ - fix typo in previous change when checking the return of strftime()
+   as reported by Mark Wagner.
+
+* Version 0.8-rc3
+ - use strftime() rather than printing out time values ourself so we get
+   localization for free via the system libc and so we don't have to
+   manipulate time structs ourselves (#1054478).
+
+* Version 0.8-rc2
+ - config file in package updated (pull fixes from Gentoo)
+ - cleanup code a bit
+ - make --help more [non-root] friendly
+ - change default 'command spawn' messages to off (use --verbose to
+   get back old noisy behavior)
+ - check for setprogname() so we build on FreeBSD 6.1 (#1557585, fix
+   from Diego Petteno)
+ - fix error in memory allocation when using multiple facilities #1217560
+ - queue up messages in signal handlers via a pipe so that we don't hit
+   deadlocks by using functions that are unsafe for use inside these states
+
+* Version 0.8-rc1
+ - new keyword: break
+ - config file in package updated (synch with break keyword)
+ - kernel logging problem fix
+ - race condition fix
+ - metalog.conf man page added
+ - log rotation can be disabled with maxsize or maxtime = 0
+
+* Version 0.7
+ - Logging is now synchronous by default. Use --async to get back to
+   the asynchronous behavior.
+ - Duplicate messages are now only logged once.
+ - Negative regexes were implemented and programs can now also be
+   matched against regexes. See the new neg_regex, program_regex and
+   program_neg_regex keywords.
+ - The maximum urgency can now be specified for each block. A new
+   keyword, "maximum" completes "minimum".
+ - A PID file is now created. It defaults to /var/run/metalog.pid but
+   it can be changed with the --pidfile switch.
+ - The location of the configuration file can now be changed with
+   --with-configfile.
+ - The code was cleaned up.
+
+* Version 0.7-beta
+ - This is a transitional version with new features contributed by
+   Hendrick Visage.
+
+* Version 0.6
+ - Metalog is now working on Linux, OpenBSD, FreeBSD and NetBSD.
+ - New --consolelevel option to set up the console level on Linux.
+ - RPM packages are now available.
+
+* Version 0.5
+ - First public release.
