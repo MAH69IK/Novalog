@@ -1,5 +1,5 @@
-#ifndef __METALOG_P_H__
-#define __METALOG_P_H__ 1
+#ifndef __NOVALOG_P_H__
+#define __NOVALOG_P_H__ 1
 
 #ifdef HAVE_KLOGCTL
 # define KLOGCTL_OPTIONS "c:"

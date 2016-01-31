@@ -1,26 +1,26 @@
 
-                               .:. METALOG .:.
+                               .:. NOVALOG .:.
 
 
 
            ------------------------ BLURB ------------------------
 
 
-Metalog is a modern replacement for syslogd and klogd. The logged messages
+Novalog is a modern replacement for syslogd and klogd. The logged messages
 can be dispatched according to their facility, urgency, program name and/or
 Perl-compatible regular expressions. Log files can be automatically rotated
 when they exceed a certain size or age. External shell scripts (e.g., mail)
 can be launched when specific patterns are found.
 
-Metalog is simple to configure, accepts unlimited number of rules and has
+Novalog is simple to configure, accepts unlimited number of rules and has
 (switchable) memory bufferization for maximal performance.
 
-http://metalog.sourceforge.net/
+http://novalog.sourceforge.net/
 
         ------------------------ COMPILATION ------------------------
         
         
-In order to compile Metalog, you should have the PCRE library on your
+In order to compile Novalog, you should have the PCRE library on your
 system. That library is used to process Perl-compatible regular expressions.
 
 libpcre comes with many distributions, but you can also download it from :
@@ -39,7 +39,7 @@ make install-strip
        
        
 A configuration file should be installed. Its default location is
-/etc/metalog.conf (unless you tweaked --with-sysconfdir) . You can find a
+/etc/novalog.conf (unless you tweaked --with-sysconfdir) . You can find a
 sample file in this directory, but it's certainly not perfect for your system
 and your needs. So read on.
 
@@ -301,16 +301,16 @@ bad idea to restart the daemon (and even better : to stop it before you mess
 the directories) .
 
   
-      ------------------------ RUNNING METALOG ------------------------
+      ------------------------ RUNNING NOVALOG ------------------------
       
 
-Kill "klogd" and "syslogd" first. Don't run Metalog while they are running.
+Kill "klogd" and "syslogd" first. Don't run Novalog while they are running.
 Multiple programs listening for the same source of data is a silly idea.
 
 Once these programs are killed (and you are *sure* they are killed), check
-that /etc/metalog.conf is installed, and simply run :
+that /etc/novalog.conf is installed, and simply run :
 
-/usr/local/sbin/metalog &
+/usr/local/sbin/novalog &
 
 On GNU/Linux systems, two processes are spawned : one is the "MASTER", doing
 much of the work. The other one (named "KERNEL") is needed for Linux and
@@ -320,15 +320,15 @@ By default, messages are immediately recorded into log files, and the I/O
 cache is flushed to be sure that you don't loose any message if a fatal crash
 or a power outage occurs.
 
-But if you prefer speed, Metalog can work asynchronously, using the --async
+But if you prefer speed, Novalog can work asynchronously, using the --async
 switch. In this mode, to avoid disk I/O, and unlike traditional syslog
-daemons, Metalog works in memory buffers, then flushes the data to disk by
+daemons, Novalog works in memory buffers, then flushes the data to disk by
 blocks. It improves a lot overall performances.
 
 If you temporarely want to switch to the asynchronous mode, send an USR2
 signal to the process. Something like :
 
-kill -USR2 $(cat /var/run/metalog.pid)
+kill -USR2 $(cat /var/run/novalog.pid)
 
 should do the trick.
 
@@ -340,7 +340,7 @@ on a log file), you can disable buffering. Just send an USR1 signal to the
      ------------------------ RUN-TIME OPTIONS ------------------------
       
       
-Metalog accepts some run-time options :
+Novalog accepts some run-time options :
 
 - '-a' or '--async' : improve performance by using buffers (but log files
 won't get updated in real time) .
@@ -357,7 +357,7 @@ alternative configuration file.
 - '-h' or '--help' : show help and version number.
 
 - '-p <filename>' or '--pidfile=<filename>' : set the name of the file
-that will hold the PID number. It defaults to /var/run/metalog.pid
+that will hold the PID number. It defaults to /var/run/novalog.pid
 
 - '-s' or '--sync' : start in synchronous mode, with no bufferization.
 

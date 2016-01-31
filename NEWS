@@ -33,7 +33,7 @@
 * Version 0.8
  - tweak signal handlers some more (#1655169)
  - when dequeuing messages from the signal pipe, abort if malloc() failed
- - add hal filter to default metalog.conf (Gentoo Bug #174847)
+ - add hal filter to default novalog.conf (Gentoo Bug #174847)
  - add support from Eric Schwimmer / Debian for a new "postrotate_cmd"
    option (#1706160)
  - fix from Eric Schwimmer for div by zero error when maxtime = 0 (#1706158)
@@ -67,7 +67,7 @@
  - config file in package updated (synch with break keyword)
  - kernel logging problem fix
  - race condition fix
- - metalog.conf man page added
+ - novalog.conf man page added
  - log rotation can be disabled with maxsize or maxtime = 0
 
 * Version 0.7
@@ -79,7 +79,7 @@
    program_neg_regex keywords.
  - The maximum urgency can now be specified for each block. A new
    keyword, "maximum" completes "minimum".
- - A PID file is now created. It defaults to /var/run/metalog.pid but
+ - A PID file is now created. It defaults to /var/run/novalog.pid but
    it can be changed with the --pidfile switch.
  - The location of the configuration file can now be changed with
    --with-configfile.
@@ -90,7 +90,7 @@
    Hendrick Visage.
 
 * Version 0.6
- - Metalog is now working on Linux, OpenBSD, FreeBSD and NetBSD.
+ - Novalog is now working on Linux, OpenBSD, FreeBSD and NetBSD.
  - New --consolelevel option to set up the console level on Linux.
  - RPM packages are now available.
 

@@ -1,8 +1,8 @@
 AC_PREREQ(2.68)
-AC_INIT([metalog], [3], [metalog-users@lists.sourceforge.net])
+AC_INIT([novalog], [3], [novalog-users@lists.sourceforge.net])
 AM_INIT_AUTOMAKE([1.11 dist-xz no-dist-gzip silent-rules -Wall])
 AM_SILENT_RULES([yes])
-AC_CONFIG_SRCDIR(src/metalog.c)
+AC_CONFIG_SRCDIR(src/novalog.c)
 AM_CONFIG_HEADER(config.h)
 
 dnl Lie about gnulib crap we dont care about
@@ -107,10 +107,10 @@ AC_CONFIG_FILES(m4_flatten([
 	gnulib/lib/Makefile
 	src/Makefile
 	man/Makefile
-	man/metalog.8
-	man/metalog.conf.5
-	metalog.spec
-	metalog.lsm
+	man/novalog.8
+	man/novalog.conf.5
+	novalog.spec
+	novalog.lsm
 ]))
 
 AC_OUTPUT

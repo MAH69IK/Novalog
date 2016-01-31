@@ -1,4 +1,4 @@
-%define name    metalog
+%define name    novalog
 %define version @VERSION@
 %define release 1
 %define builddir $RPM_BUILD_DIR/%{name}-%{version}
@@ -21,8 +21,8 @@ Version:        %{version}
 Release:        %{release}
 Vendor:         Generic
 Packager:       Frank DENIS <j@pureftpd.org>
-URL:            http://metalog.sourceforge.net/
-Source:         ftp://ftp.fr.pureftpd.org/metalog/%{name}-%{version}.tar.gz
+URL:            http://novalog.sourceforge.net/
+Source:         ftp://ftp.fr.pureftpd.org/novalog/%{name}-%{version}.tar.gz
 Group:          System/Logging
 Copyright:      GPL
 Provides:       syslog-daemon
@@ -31,12 +31,12 @@ Summary:        An efficient alternative to syslogd
 Obsoletes:      syslogd klogd
 
 %description
-Metalog is a modern replacement for syslogd and klogd. The logged messages
+Novalog is a modern replacement for syslogd and klogd. The logged messages
 can be dispatched according to their facility, urgency, program name and/or
 Perl-compatible regular expressions. Log files can be automatically rotated
 when they exceed a certain size or age. External shell scripts (e.g., mail)
 can be launched when specific patterns are found.
-Metalog is easier to configure than syslogd and accepts an unlimited
+Novalog is easier to configure than syslogd and accepts an unlimited
 number of rules and it has (switchable) memory bufferization for maximal
 performance.
 
@@ -70,7 +70,7 @@ fi
 
 gzip --best $RPM_BUILD_ROOT/%{_mandir}/man8/*.8
 
-install -m 644 metalog.conf $RPM_BUILD_ROOT%{sysconfdir}/
+install -m 644 novalog.conf $RPM_BUILD_ROOT%{sysconfdir}/
 
 %clean
 [ -n "$RPM_BUILD_ROOT" -a "$RPM_BUILD_ROOT" != / ] && rm -rf "$RPM_BUILD_ROOT"

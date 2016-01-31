@@ -2,7 +2,7 @@
   patches, etc
 
 * Leo Lipelis <aeoo@gentoo.org>
-  Tiny patch to allow /var/run/metalog.pid  
+  Tiny patch to allow /var/run/novalog.pid  
   
 * Hendrik Visage <hvisage@users.sourceforge.net>
   Implemented neg_regex, program_regex and neg_program_regex.

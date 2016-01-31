@@ -53,7 +53,7 @@ host_triplet = @host@
 subdir = .
 DIST_COMMON = README $(am__configure_deps) $(srcdir)/Makefile.am \
 	$(srcdir)/Makefile.in $(srcdir)/config.h.in \
-	$(srcdir)/metalog.lsm.in $(srcdir)/metalog.spec.in \
+	$(srcdir)/novalog.lsm.in $(srcdir)/novalog.spec.in \
 	$(top_srcdir)/configure AUTHORS COPYING ChangeLog INSTALL NEWS \
 	config.guess config.sub install-sh missing
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -153,7 +153,7 @@ am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
  configure.lineno config.status.lineno
 mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = config.h
-CONFIG_CLEAN_FILES = metalog.spec metalog.lsm
+CONFIG_CLEAN_FILES = novalog.spec novalog.lsm
 CONFIG_CLEAN_VPATH_FILES =
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
@@ -1347,12 +1347,12 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 EXTRA_DIST = \
-	metalog.conf \
-	metalog.spec.in \
-	metalog.lsm.in \
+	novalog.conf \
+	novalog.spec.in \
+	novalog.lsm.in \
 	gnulib/m4/gnulib-cache.m4
 
-sysconf_DATA = metalog.conf
+sysconf_DATA = novalog.conf
 SUBDIRS = \
 	gnulib/lib \
 	src \
@@ -1412,9 +1412,9 @@ $(srcdir)/config.h.in:  $(am__configure_deps)
 
 distclean-hdr:
 	-rm -f config.h stamp-h1
-metalog.spec: $(top_builddir)/config.status $(srcdir)/metalog.spec.in
+novalog.spec: $(top_builddir)/config.status $(srcdir)/novalog.spec.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
-metalog.lsm: $(top_builddir)/config.status $(srcdir)/metalog.lsm.in
+novalog.lsm: $(top_builddir)/config.status $(srcdir)/novalog.lsm.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
 install-sysconfDATA: $(sysconf_DATA)
 	@$(NORMAL_INSTALL)

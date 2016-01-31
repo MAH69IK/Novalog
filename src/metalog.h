@@ -1,5 +1,5 @@
-#ifndef __METALOG_H__
-#define __METALOG_H__ 1
+#ifndef __NOVALOG_H__
+#define __NOVALOG_H__ 1
 
 #ifndef __GNUC__
 # ifdef __attribute__
