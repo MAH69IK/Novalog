@@ -4,7 +4,7 @@
 #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof(arr[0]))
 
 #define warn(fmt, args...) \
-    fprintf(stderr, "%s: " fmt "\n", "metalog" , ## args)
+    fprintf(stderr, "%s: " fmt "\n", "novalog" , ## args)
 #define warnf(fmt, args...) warn("%s():%i: " fmt, __func__, __LINE__ , ## args)
 #define warnp(fmt, args...) warn(fmt ": %s" , ## args , strerror(errno))
 #define _err(wfunc, fmt, args...) \

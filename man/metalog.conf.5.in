@@ -1,7 +1,7 @@
-.TH "metalog.conf" "5" "@VERSION@" "Frank DENIS" "Metalog configuration file"
+.TH "novalog.conf" "5" "@VERSION@" "Frank DENIS" "Novalog configuration file"
 .SH "NAME"
 .LP
-metalog.conf \- configuration file for metalog
+novalog.conf \- configuration file for novalog
 .SH "SYNTAX"
 .LP
 .nf
@@ -87,7 +87,7 @@ the opposite of given patterns. Several neg_regex can be defined in a section.
 .TP
 .B postrotate_cmd
 postrotate_cmd = "/path/to/a/program". Run specified program after a log file
-has been rotated. The program is passed the date, the program name ("metalog"),
+has been rotated. The program is passed the date, the program name ("novalog"),
 and the new logfile name.
 .TP
 .B program_regex
@@ -141,7 +141,7 @@ invalid and will be rejected.
 Note that the exact paths depend on the build settings.  These are the standard paths.
 
 .nf
-.I /etc/metalog.conf
+.I /etc/novalog.conf
 .fi
 .SH "AUTHORS"
 .LP
@@ -153,4 +153,4 @@ Hendrik Visage <hvisage@users.sourceforge.net>
 Frank DENIS (Jedi/Sector One) <j@pureftpd.org>
 .fi
 .SH "SEE ALSO"
-.BR metalog (8)
+.BR novalog (8)

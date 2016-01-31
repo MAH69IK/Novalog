@@ -1,10 +1,10 @@
 EXTRA_DIST = \
-	metalog.conf \
-	metalog.spec.in \
-	metalog.lsm.in \
+	novalog.conf \
+	novalog.spec.in \
+	novalog.lsm.in \
 	gnulib/m4/gnulib-cache.m4
 
-sysconf_DATA = metalog.conf
+sysconf_DATA = novalog.conf
 
 SUBDIRS = \
 	gnulib/lib \

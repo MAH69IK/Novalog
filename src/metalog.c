@@ -1,8 +1,8 @@
 #include <config.h>
 
 #define SYSLOG_NAMES 1
-#include "metalog.h"
-#include "metalog_p.h"
+#include "novalog.h"
+#include "novalog_p.h"
 #ifdef WITH_DMALLOC
 # include <dmalloc.h>
 #endif
@@ -1103,7 +1103,7 @@ static int doLog(const char * fmt, ...)
     vsnprintf (infobuf, sizeof infobuf, fmt, ap);
     va_end(ap);
 
-    return processLogLine(LOG_SYSLOG, "metalog", infobuf);
+    return processLogLine(LOG_SYSLOG, "novalog", infobuf);
 }
 
 static void sanitize(char * const line_)
@@ -1346,7 +1346,7 @@ static void signal_doLog_dequeue(void)
 }
 
 __attribute__ ((noreturn))
-static void metalog_signal_exit(int exit_status)
+static void novalog_signal_exit(int exit_status)
 {
     exit_hook();
     _exit(exit_status);
@@ -1356,7 +1356,7 @@ __attribute__ ((noreturn))
 static RETSIGTYPE sigkchld(int sig)
 {
     signal_doLog_queue("Process [%u] died with signal [%d]\n", (unsigned int) getpid(), sig);
-    metalog_signal_exit(EXIT_FAILURE);
+    novalog_signal_exit(EXIT_FAILURE);
 }
 
 static RETSIGTYPE sigchld(int sig)
@@ -1383,7 +1383,7 @@ static RETSIGTYPE sigchld(int sig)
     }
     if (should_exit != 0) {
         child = (pid_t) 0;
-        metalog_signal_exit(EXIT_FAILURE);
+        novalog_signal_exit(EXIT_FAILURE);
     }
 }
 

@@ -51,7 +51,7 @@ build_triplet = @build@
 host_triplet = @host@
 subdir = man
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
-	$(srcdir)/metalog.8.in $(srcdir)/metalog.conf.5.in
+	$(srcdir)/novalog.8.in $(srcdir)/novalog.conf.5.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/gnulib/m4/00gnulib.m4 \
 	$(top_srcdir)/gnulib/m4/alloca.m4 \
@@ -147,7 +147,7 @@ am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/config.h
-CONFIG_CLEAN_FILES = metalog.8 metalog.conf.5
+CONFIG_CLEAN_FILES = novalog.8 novalog.conf.5
 CONFIG_CLEAN_VPATH_FILES =
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
@@ -1286,7 +1286,7 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-man_MANS = metalog.8 metalog.conf.5
+man_MANS = novalog.8 novalog.conf.5
 all: all-am
 
 .SUFFIXES:
@@ -1320,9 +1320,9 @@ $(top_srcdir)/configure:  $(am__configure_deps)
 $(ACLOCAL_M4):  $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 $(am__aclocal_m4_deps):
-metalog.8: $(top_builddir)/config.status $(srcdir)/metalog.8.in
+novalog.8: $(top_builddir)/config.status $(srcdir)/novalog.8.in
 	cd $(top_builddir) && $(SHELL) ./config.status $(subdir)/$@
-metalog.conf.5: $(top_builddir)/config.status $(srcdir)/metalog.conf.5.in
+novalog.conf.5: $(top_builddir)/config.status $(srcdir)/novalog.conf.5.in
 	cd $(top_builddir) && $(SHELL) ./config.status $(subdir)/$@
 install-man5: $(man_MANS)
 	@$(NORMAL_INSTALL)

@@ -1,1 +1,1 @@
-man_MANS = metalog.8 metalog.conf.5
+man_MANS = novalog.8 novalog.conf.5
