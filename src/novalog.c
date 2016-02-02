@@ -845,7 +845,7 @@ static int writeLogLine(Output * const output, const char * const date,
             }
             goto testdir;
         }
-        if (snprintf(path, sizeof path, "%s/" nomo, output->directory) < 0) {
+        if (snprintf(path, sizeof path, "%s/%s", output->directory, nomo) < 0) {
             if (strcmp(nomo, OUTPUT_DIR_CURRENT) == 0) {
                 warnp("Path name too long for current in [%s]", output->directory);
                 return -2;
@@ -922,7 +922,7 @@ static int writeLogLine(Output * const output, const char * const date,
                 warnp("Path name too long for new path in [%s]", output->directory);
                 return -2;
             }
-            if (snprintf(path, sizeof path, "%s/" nomo, output->directory) < 0) {
+            if (snprintf(path, sizeof path, "%s/%s", output->directory, nomo) < 0) {
                 if (strcmp(nomo, OUTPUT_DIR_CURRENT) == 0) {
                     warnp("Path name too long for current in [%s]", output->directory);
                     return -2;
