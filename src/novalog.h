@@ -123,6 +123,7 @@ typedef struct ConfigBlock_ {
     Output *output;
     const char *command;
     const char *program;
+    char *nomo;
     /*
      * If output or command match, and brk is set,
      * do output and/or command then break out of

@@ -68,6 +68,9 @@ minimum level is 7 (ie. keep all messages).
 maximum = <level> : don't log if the message level exceeds that value. By
 default, maximum is the largest possible level.
 .TP
+.B nomo
+nomo = "name". Specify logfile name. Default = "current".
+.TP
 .B logdir
 logdir = "/path/where/logs/will/be/written" : files will be written in
 /path/where/logs/will/be/written.

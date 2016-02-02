@@ -235,6 +235,9 @@ static int parseLine(char * const line, ConfigBlock **cur_block,
         } else if (strcasecmp(keyword, "program") == 0) {
             if (((*cur_block)->program = wstrdup(value)) == NULL)
                 return -3;
+        } else if (strcasecmp(keyword, "nomo") == 0) {
+            if (((*cur_block)->nomo = wstrdup(value)) == NULL)
+                return -3;
         } else if (strcasecmp(keyword, "postrotate_cmd") == 0) {
             if (((*cur_block)->postrotate_cmd = wstrdup(value)) == NULL)
                return -3;
@@ -334,6 +337,7 @@ static int configParser(const char * const file)
             NULL,                      /* output */
             NULL,                      /* command */
             NULL,                      /* program */
+            NULL,                      /* nomo */
             0,                         /* break flag */
             NULL,                      /* program_regexes */
             0,                         /* program_nb_regexes */
@@ -760,7 +764,8 @@ static int rateLimit(RateLimiter * const rl)
 }
 
 static int writeLogLine(Output * const output, const char * const date,
-                        const char * const prg, const char * const info)
+                        const char * const prg, const char * const info,
+                        const char * const nomo)
 {
     size_t sizeof_prg;
     size_t sizeof_info;
@@ -777,6 +782,9 @@ static int writeLogLine(Output * const output, const char * const date,
     if (sizeof_prg > MAX_SIGNIFICANT_LENGTH) {
         sizeof_prg = MAX_SIGNIFICANT_LENGTH;
     }
+    /* Наверное эта проверка всё же лишняя
+    if (nomo == NULL)
+        nomo = OUTPUT_DIR_CURRENT;*/
 
     if (rateLimit(&output->rate)) {
         return 0;
@@ -837,10 +845,17 @@ static int writeLogLine(Output * const output, const char * const date,
             }
             goto testdir;
         }
-        if (snprintf(path, sizeof path, "%s/" OUTPUT_DIR_CURRENT,
-                     output->directory) < 0) {
-            warnp("Path name too long for current in [%s]", output->directory);
-            return -2;
+        if (snprintf(path, sizeof path, "%s/" nomo, output->directory) < 0) {
+            if (nomo == OUTPUT_DIR_CURRENT) {
+                warnp("Path name too long for current in [%s]", output->directory);
+                return -2;
+            } else {
+                warnp("Path name too long for %s in [%s]. Trying to use default name ('%s')", nomo, output->directory, OUTPUT_DIR_CURRENT);
+                if (snprintf(path, sizeof path, "%s/" OUTPUT_DIR_CURRENT, output->directory) < 0) {
+                    warnp("Path name too long for current in [%s]", output->directory);
+                    return -2;
+                }
+            }
         }
         if ((fp = fopen(path, "a")) == NULL) {
             warnp("Unable to access [%s]", path);
@@ -907,10 +922,17 @@ static int writeLogLine(Output * const output, const char * const date,
                 warnp("Path name too long for new path in [%s]", output->directory);
                 return -2;
             }
-            if (snprintf(path, sizeof path, "%s/" OUTPUT_DIR_CURRENT,
-                        output->directory) < 0) {
-                warnp("Path name too long for current in [%s]", output->directory);
-                return -2;
+            if (snprintf(path, sizeof path, "%s/" nomo, output->directory) < 0) {
+                if (nomo == OUTPUT_DIR_CURRENT) {
+                    warnp("Path name too long for current in [%s]", output->directory);
+                    return -2;
+                } else {
+                    warnp("Path name too long for %s in [%s]. Trying to use default name ('%s')", nomo, output->directory, OUTPUT_DIR_CURRENT);
+                    if (snprintf(path, sizeof path, "%s/" OUTPUT_DIR_CURRENT, output->directory) < 0) {
+                        warnp("Path name too long for current in [%s]", output->directory);
+                        return -2;
+                    }
+                }
             }
             rotateLogFiles(output->directory, output->maxfiles);
             fclose(output->fp);
@@ -1074,7 +1096,7 @@ static int processLogLine(const int logcode,
 
         bool do_break = false;
         if (block->output != NULL) {
-            writeLogLine(block->output, datebuf, prg, info);
+            writeLogLine(block->output, datebuf, prg, info, block->nomo);
             if (block->brk)
                 do_break = true;
         }
