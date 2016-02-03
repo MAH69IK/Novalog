@@ -769,6 +769,7 @@ static int writeLogLine(Output * const output, const char * const date,
 {
     size_t sizeof_prg;
     size_t sizeof_info;
+    char *dosiernomo;
     time_t now;
 
     if (output == NULL || output->directory == NULL ||
@@ -783,7 +784,9 @@ static int writeLogLine(Output * const output, const char * const date,
         sizeof_prg = MAX_SIGNIFICANT_LENGTH;
     }
     if (nomo == NULL)
-        nomo = OUTPUT_DIR_CURRENT;
+        dosiernomo = nomo;
+    else
+        dosiernomo = OUTPUT_DIR_CURRENT;
 
     if (rateLimit(&output->rate)) {
         return 0;
@@ -844,14 +847,14 @@ static int writeLogLine(Output * const output, const char * const date,
             }
             goto testdir;
         }
-        if (snprintf(path, sizeof path, "%s/%s", output->directory, nomo) < 0) {
-            if (strcmp(nomo, OUTPUT_DIR_CURRENT) == 0) {
-                warnp("Path name too long for current in [%s]", output->directory);
+        if (snprintf(path, sizeof path, "%s/%s", output->directory, dosiernomo) < 0) {
+            if (strcmp(dosiernomo, OUTPUT_DIR_CURRENT) == 0) {
+                warnp("Path name too long for %s in [%s]", OUTPUT_DIR_CURRENT, output->directory);
                 return -2;
             } else {
-                warnp("Path name too long for %s in [%s]. Trying to use default name ('%s')", nomo, output->directory, OUTPUT_DIR_CURRENT);
+                warnp("Path name too long for %s in [%s]. Trying to use default name ('%s')", dosiernomo, output->directory, OUTPUT_DIR_CURRENT);
                 if (snprintf(path, sizeof path, "%s/" OUTPUT_DIR_CURRENT, output->directory) < 0) {
-                    warnp("Path name too long for current in [%s]", output->directory);
+                    warnp("Path name too long for %s in [%s]", OUTPUT_DIR_CURRENT, output->directory);
                     return -2;
                 }
             }
@@ -921,14 +924,14 @@ static int writeLogLine(Output * const output, const char * const date,
                 warnp("Path name too long for new path in [%s]", output->directory);
                 return -2;
             }
-            if (snprintf(path, sizeof path, "%s/%s", output->directory, nomo) < 0) {
-                if (strcmp(nomo, OUTPUT_DIR_CURRENT) == 0) {
-                    warnp("Path name too long for current in [%s]", output->directory);
+            if (snprintf(path, sizeof path, "%s/%s", output->directory, dosiernomo) < 0) {
+                if (strcmp(dosiernomo, OUTPUT_DIR_CURRENT) == 0) {
+                    warnp("Path name too long for %s in [%s]", OUTPUT_DIR_CURRENT, output->directory);
                     return -2;
                 } else {
-                    warnp("Path name too long for %s in [%s]. Trying to use default name ('%s')", nomo, output->directory, OUTPUT_DIR_CURRENT);
+                    warnp("Path name too long for %s in [%s]. Trying to use default name ('%s')", dosiernomo, output->directory, OUTPUT_DIR_CURRENT);
                     if (snprintf(path, sizeof path, "%s/" OUTPUT_DIR_CURRENT, output->directory) < 0) {
-                        warnp("Path name too long for current in [%s]", output->directory);
+                        warnp("Path name too long for %s in [%s]", OUTPUT_DIR_CURRENT, output->directory);
                         return -2;
                     }
                 }
