@@ -783,7 +783,7 @@ static int writeLogLine(Output * const output, const char * const date,
     if (sizeof_prg > MAX_SIGNIFICANT_LENGTH) {
         sizeof_prg = MAX_SIGNIFICANT_LENGTH;
     }
-    if (nomo == NULL)
+    if (nomo == NULL || strlen(nomo) == 0)
         dosiernomo = OUTPUT_DIR_CURRENT;
     else
         dosiernomo = nomo;
