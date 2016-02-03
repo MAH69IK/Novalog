@@ -783,7 +783,7 @@ static int writeLogLine(Output * const output, const char * const date,
         sizeof_prg = MAX_SIGNIFICANT_LENGTH;
     }
     if (nomo == NULL)
-        nomo = OUTPUT_DIR_CURRENT;
+        *nomo = OUTPUT_DIR_CURRENT;
 
     if (rateLimit(&output->rate)) {
         return 0;
