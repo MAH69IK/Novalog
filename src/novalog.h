@@ -88,6 +88,7 @@ typedef struct Output_ {
     char *directory;
     FILE *fp;
     off_t size;
+    int noktomezo;
     off_t maxsize;
     int maxfiles;
     time_t maxtime;
@@ -117,6 +118,7 @@ typedef struct ConfigBlock_ {
     int nb_facilities;
     RegexWithSign *regexeswithsign;
     int nb_regexes;
+    int noktomezo;
     off_t maxsize;
     int maxfiles;
     time_t maxtime;

@@ -159,7 +159,12 @@ static int parseLine(char * const line, ConfigBlock **cur_block,
                     pcre_study(new_regex, 0, &errptr);
             }
             (*cur_block)->program_nb_regexes++;
-        } else if (strcasecmp(keyword, "maxsize") == 0) {
+        } else if (strcasecmp(keyword, "noktomezo") == 0) {
+	    (*cur_block)->noktomezo = atoi(value);
+	    if ((*cur_block)->output != NULL) {
+	        (*cur_block)->output->noktomezo = (*cur_block)->noktomezo;
+            }
+	} else if (strcasecmp(keyword, "maxsize") == 0) {
             (*cur_block)->maxsize = (off_t) strtoull(value, NULL, 0);
             if ((*cur_block)->output != NULL) {
                 (*cur_block)->output->maxsize = (*cur_block)->maxsize;
@@ -331,6 +336,7 @@ static int configParser(const char * const file)
             0,                         /* nb_facilities */
             NULL,                      /* regexes */
             0,                         /* nb_regexes */
+	    1,                         /* noktomezo */
             (off_t) DEFAULT_MAXSIZE,   /* maxsize */
             DEFAULT_MAXFILES,          /* maxfiles */
             (time_t) DEFAULT_MAXTIME,  /* maxtime */
@@ -897,9 +903,9 @@ static int writeLogLine(Output * const output, const char * const date,
         output->size = (off_t) ftell(fp);
         output->fp = fp;
     }
-    if ((output->maxsize != 0) || (output->maxtime != 0)) {
-        if (output->size >= output->maxsize ||
-            now > (output->creatime + output->maxtime)) {
+        if ((output->maxsize   != 0 && output->size >= output->maxsize) ||
+            (output->maxtime   != 0 && now > (output->creatime + output->maxtime)) ||
+            (output->noktomezo != 0 && now / 86400 != output->creatime / 86400)) {
             struct tm *time_gm;
             char path[PATH_MAX];
             char newpath[PATH_MAX];
@@ -953,7 +959,6 @@ static int writeLogLine(Output * const output, const char * const date,
             unlink(path);
             goto testdir;
         }
-    }
     if (output->dt.same_counter > 0U) {
         if (output->dt.same_counter == 1) {
             fprintf(output->fp, LAST_OUTPUT_TWICE);
