@@ -908,7 +908,7 @@ static int writeLogLine(Output * const output, const char * const date,
                 warnf("Internal inconsistency");
                 return -6;
             }
-            if ((time_gm = gmtime(&now)) == NULL) {
+            if ((time_gm = localtime(&now)) == NULL) {
                 warnp("Unable to find the current date");
                 return -4;
             }
