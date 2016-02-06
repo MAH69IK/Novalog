@@ -897,7 +897,7 @@ static int writeLogLine(Output * const output, const char * const date,
         output->size = (off_t) ftell(fp);
         output->fp = fp;
     }
-    if ((output->maxsize != 0) && (output->maxtime != 0)) {
+    if ((output->maxsize != 0) || (output->maxtime != 0)) {
         if (output->size >= output->maxsize ||
             now > (output->creatime + output->maxtime)) {
             struct tm *time_gm;
