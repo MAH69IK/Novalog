@@ -207,6 +207,7 @@ static int parseLine(char * const line, ConfigBlock **cur_block,
             new_output->directory = logdir;
             new_output->fp = NULL;
             new_output->size = (off_t) 0;
+	    new_output->noktomezo = (*cur_block)->noktomezo;
             new_output->maxsize = (*cur_block)->maxsize;
             new_output->maxfiles = (*cur_block)->maxfiles;
             new_output->maxtime = (*cur_block)->maxtime;
