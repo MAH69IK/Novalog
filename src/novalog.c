@@ -906,7 +906,7 @@ static int writeLogLine(Output * const output, const char * const date,
     }
         if ((output->maxsize   != 0 && output->size >= output->maxsize) ||
             (output->maxtime   != 0 && now > (output->creatime + output->maxtime)) ||
-            (output->noktomezo != 0 && now / 86400 != output->creatime / 86400)) {
+            (output->noktomezo != 0 && (int) now / 86400 != (int) output->creatime / 86400)) {
             struct tm *time_gm;
             char path[PATH_MAX];
             char newpath[PATH_MAX];
