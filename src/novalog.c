@@ -1497,70 +1497,79 @@ static void dodaemonize(void)
     }
 }
 
-__attribute__ ((noreturn))
-static void help(void)
-{
-    const struct option *options = long_options;
+__attribute__ ((noreturn)) static void help(void) {
+	const struct option *options = long_options;
 
-    puts(PACKAGE " version " VERSION "\n");
-    puts("Options:");
-    do {
-        printf("   -%c, --%s%s\n", options->val, options->name,
-               options->has_arg ? " <opt>" : "");
-        options++;
-    } while (options->name != NULL);
-    exit(EXIT_SUCCESS);
+	puts(PACKAGE " version " VERSION "\n");
+	uts("Options:");
+	do {
+		printf("   -%c, --%s%s\n", options->val, options->name, options->has_arg ? " <opt>" : "");
+		options++;
+	} while (options->name != NULL);
+	exit(EXIT_SUCCESS);
 }
 
-static void parseOptions(int argc, char *argv[])
-{
-    int fodder;
-    int option_index = 0;
+static void parseOptions(int argc, char *argv[]) {
+	int fodder;
 
-    while ((fodder =  getopt_long(argc, argv, GETOPT_OPTIONS,
-                                  long_options, &option_index)) != -1) {
-        switch (fodder) {
-        case 'a' :
-            synchronous = (sig_atomic_t) 0;
-            break;
-        case 'B' :
-            daemonize = 1;
-            break;
-#ifdef HAVE_KLOGCTL
-        case 'c' :
-            console_level = atoi(optarg);
-            if (console_level < MIN_CONSOLE_LEVEL ||
-                console_level > MAX_CONSOLE_LEVEL)
-                err("Invalid console level");
-            break;
-#endif
-        case 'C' :
-            config_file = xstrdup(optarg);
-            break;
-        case 'v' :
-            ++verbose;
-            break;
-        case 'N' :
-            do_kernel_log = false;
-            break;
-        case 'V' :
-            puts(PACKAGE " version " VERSION);
-            exit(EXIT_SUCCESS);
-        case 'h' :
-            help();
-        case 'p' :
-            pid_file = xstrdup(optarg);
-            break;
-        case 's' :
-            break;
-        case ':' :
-            err("Option '%c' is missing parameter", optopt);
-        case '?':
-            err("Unknown option '%c' or argument missing", optopt);
-        default :
-            err("Unknown option '%c'", optopt);
-        }
-    }
+	/*
+	 * Массив по переданным опциям.
+	 * getopt_long() разбирает переданные аргументы.
+	 * GETOPT_OPTIONS содержит строку допустимых коротких опций.
+	 * long_options содержит массив соответствий длинных имён опций коротким.
+	 */
+	while ((fodder =  getopt_long(argc, argv, GETOPT_OPTIONS, long_options, 0)) != -1) {
+		switch (fodder) {
+			/* Асинхронная запись данных в файл (по-умолчанию - синхронный) */
+			case 'a' :
+				synchronous = (sig_atomic_t) 0;
+				break;
+			/* Запустить как фоновый процесс (по-умолчанию - нет) */
+			case 'B' :
+				daemonize = 1;
+				break;
+			/* Уровень журналирования сообщений в консоль (по-умолчанию - 7) */
+			#ifdef HAVE_KLOGCTL
+			case 'c' :
+				console_level = atoi(optarg);
+				if (console_level < MIN_CONSOLE_LEVEL || console_level > MAX_CONSOLE_LEVEL)
+					err("Invalid console level");
+				break;
+			#endif
+			/* Путь к конфигурационному файлу (по-умолчанию - novalog.conf в системногом каталоге конфигураций) */
+			/* NOTO: почему присвоение строки происходит именно таким способом? */
+			case 'C' :
+				config_file = xstrdup(optarg);
+				break;
+			/* Многословный режим (по-умолчанию - нет) */
+			/* NOTO: эта переменная лишь проверяется на неравенство нулю, вероятно нет смысла её увеличивать, можно использовать присовение */
+			case 'v' :
+				++verbose;
+				break;
+			/* Не журналировать переменные от ядра (по-умолчанию - журналировать) */
+			case 'N' :
+				do_kernel_log = false;
+				break;
+			case 'V' :
+			/* Отобразить информацию о версии */
+				puts(PACKAGE " version " VERSION);
+				exit(EXIT_SUCCESS);
+			/* Показать справку по опциям */
+			case 'h' :
+				help();
+			case 'p' :
+				pid_file = xstrdup(optarg);
+				break;
+			case 's' :
+				break;
+			case ':' :
+				err("Option '%c' is missing parameter", optopt);
+			case '?':
+				err("Unknown option '%c' or argument missing", optopt);
+			default :
+				err("Unknown option '%c'", optopt);
+		}
+	}
 }
 
 static void checkRoot(void)
@@ -1569,11 +1578,11 @@ static void checkRoot(void)
         err("Sorry, you must be root to launch this program");
 }
 
-int main(int argc, char *argv[])
-{
-    int sockets[2];
+int main(int argc, char *argv[]) {
+	int sockets[2];
 
-    parseOptions(argc, argv);
+	/* Разбор переданных опций */
+	parseOptions(argc, argv);
     if (configParser(config_file) < 0)
         err("Bad configuration file");
     checkRoot();

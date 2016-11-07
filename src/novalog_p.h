@@ -36,8 +36,10 @@ static int console_level = DEFAULT_CONSOLE_LEVEL;
 #endif
 static pid_t child;
 static sig_atomic_t synchronous = (sig_atomic_t) 1;
+/* NOTO: это переменная-флаг. Тип char занимает 1 байт, int - 2. Почитать про оптимизацию, возможно стоит использовать char */
 static int verbose;
 static bool do_kernel_log = true;
+/* NOTO: это переменная-флаг. Тип char занимает 1 байт, int - 2. Почитать про оптимизацию, возможно стоит использовать char */
 static signed char daemonize;
 static const char *pid_file = DEFAULT_PID_FILE;
 static const char *config_file = DEFAULT_CONFIG_FILE;

@@ -578,11 +578,11 @@ MFLAGS=
 MAKEFLAGS=
 
 # Identity of this package.
-PACKAGE_NAME='novalog'
+PACKAGE_NAME='Novalog'
 PACKAGE_TARNAME='novalog'
-PACKAGE_VERSION='3'
-PACKAGE_STRING='novalog 3'
-PACKAGE_BUGREPORT='novalog-users@lists.sourceforge.net'
+PACKAGE_VERSION='1'
+PACKAGE_STRING='Novalog 1'
+PACKAGE_BUGREPORT='novalog@mah69k.net'
 PACKAGE_URL=''
 
 ac_unique_file="src/novalog.c"
