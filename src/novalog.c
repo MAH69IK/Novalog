@@ -1501,7 +1501,7 @@ __attribute__ ((noreturn)) static void help(void) {
 	const struct option *options = long_options;
 
 	puts(PACKAGE " version " VERSION "\n");
-	uts("Options:");
+	puts("Options:");
 	do {
 		printf("   -%c, --%s%s\n", options->val, options->name, options->has_arg ? " <opt>" : "");
 		options++;
